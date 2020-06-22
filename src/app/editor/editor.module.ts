@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EditorComponent } from './editor.component';
 import {ClarityModule} from '@clr/angular';
 import {FormsModule} from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 
@@ -11,7 +12,8 @@ import {FormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     ClarityModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ]
 })
 export class EditorModule { }

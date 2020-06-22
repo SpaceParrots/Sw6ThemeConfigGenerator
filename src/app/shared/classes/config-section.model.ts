@@ -1,4 +1,4 @@
-export class ConfigTabLabel {
+export class ConfigSectionLabel {
   public language: string;
   public label: string;
 
@@ -16,17 +16,17 @@ export class ConfigTabLabel {
   }
 }
 
-export class ConfigTab {
+export class ConfigSection {
   name: string;
-  label: ConfigTabLabel[];
+  label: ConfigSectionLabel[];
 
-  constructor(name: string, label: ConfigTabLabel[] = null) {
+  constructor(name: string, label: ConfigSectionLabel[] = null) {
     this.name = name;
     this.label = label;
     if (this.label == null) {
       this.label = [
-        new ConfigTabLabel('de-DE', `${this.name} DE`),
-        new ConfigTabLabel('en-GB', `${this.name} EN`)
+        new ConfigSectionLabel('de-DE', `${this.name} DE`),
+        new ConfigSectionLabel('en-GB', `${this.name} EN`)
       ];
     }
   }

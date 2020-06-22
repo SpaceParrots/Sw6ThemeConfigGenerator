@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "yarn"
+    "packageManager": "yarn",
+    "defaultCollection": "@datorama/akita"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -85,7 +86,8 @@
             "production": {
               "browserTarget": "Sw6ThemeConfigGenerator:build:production",
               "hmr": false
-            },"ci": {
+            },
+            "ci": {
               "progress": false
             }
           }

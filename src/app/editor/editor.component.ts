@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfigModel} from '@app/editor/classes/config.model';
-import {ConfigTab} from '@app/editor/classes/config-tab.model';
+import {ConfigModel} from '@app/shared/classes/config.model';
+import {ConfigTab} from '@app/shared/classes/config-tab.model';
 
 @Component({
   selector: 'app-editor',

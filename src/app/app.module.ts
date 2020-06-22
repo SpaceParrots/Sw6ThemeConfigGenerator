@@ -8,6 +8,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
 import {SharedModule} from '@app/shared/shared.module';
 import {EditorModule} from '@app/editor/editor.module';
+import {AkitaNgDevtools} from '@datorama/akita-ngdevtools';
+import {environment} from '@env/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import {EditorModule} from '@app/editor/editor.module';
     TranslateModule.forRoot(),
     AppRoutingModule,
     EditorModule,
-    SharedModule
+    SharedModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
