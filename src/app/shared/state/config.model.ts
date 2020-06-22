@@ -1,16 +1,15 @@
 import {ConfigTab} from '@app/shared/classes/config-tab.model';
-import {ConfigSection} from '@app/shared/classes/config-section.model';
 
 export interface Config {
-  id: number | string;
   name: string;
   author: string;
   tabs: ConfigTab[];
-  sections: ConfigSection[];
 }
 
-export function createConfig(params: Partial<Config>) {
+export function createConfig(params: Partial<Config> = {}): Config {
   return {
-
+    name: params.name || 'A Theme',
+    author: params.author || 'Sw6ThemeConfigGenerator',
+    tabs: params.tabs || new Array<ConfigTab>()
   } as Config;
 }

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfigQuery} from '@app/shared/state/config.query';
 import {ConfigService} from '@app/shared/state/config.service';
+import {Observable} from 'rxjs';
+import {Config} from '@app/shared/state/config.model';
+import {ConfigTab} from '@app/shared/classes/config-tab.model';
 
 @Component({
   selector: 'app-tabs',
@@ -9,12 +11,17 @@ import {ConfigService} from '@app/shared/state/config.service';
 })
 export class TabsComponent implements OnInit {
 
-  constructor(private configQuery: ConfigQuery,
-              private configService: ConfigService) {
+  $config: Observable<Config>;
+
+  constructor(private configService: ConfigService) {
+    this.$config = configService.get();
   }
 
   ngOnInit(): void {
-    this.configQuery.select();
   }
 
+  doAddTab(config: Config) {
+    config.tabs.push(new ConfigTab('New Tab'));
+    this.configService.update(config);
+  }
 }

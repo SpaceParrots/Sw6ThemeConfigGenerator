@@ -1,4 +1,4 @@
-<clr-tabs>
+<clr-tabs *ngIf="$config | async as config">
 
   <!-- Config: Tabs -->
   <ng-container *ngFor="let tab of config.tabs">
@@ -23,7 +23,7 @@
   <!-- Config: Add Tab -->
   <clr-tab>
     <clr-tab>
-      <button clrTabLink (click)="doAddTab()">
+      <button clrTabLink (click)="doAddTab(config)">
         <clr-icon shape="plus"></clr-icon>
       </button>
     </clr-tab>

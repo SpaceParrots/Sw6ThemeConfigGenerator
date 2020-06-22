@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ConfigModel} from '@app/shared/classes/config.model';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Config} from '@app/shared/state/config.model';
+import {ConfigService} from '@app/shared/state/config.service';
 import {ConfigTab} from '@app/shared/classes/config-tab.model';
 
 @Component({
@@ -7,20 +9,24 @@ import {ConfigTab} from '@app/shared/classes/config-tab.model';
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements OnInit, OnDestroy {
 
-  public config: ConfigModel;
+  public $config: Observable<Config>;
 
-  constructor() {
-    this.config = new ConfigModel();
-    this.config.tabs.push(new ConfigTab('default'));
+  constructor(private configService: ConfigService) {
+    this.$config = this.configService.get();
   }
 
   ngOnInit(): void {
 
   }
 
-  doAddTab() {
-    this.config.tabs.push(new ConfigTab('New Tab'));
+  doAddTab(config: Config) {
+    config.tabs.push(new ConfigTab('New Tab'));
+    this.configService.update(config);
+  }
+
+  ngOnDestroy(): void {
+
   }
 }
