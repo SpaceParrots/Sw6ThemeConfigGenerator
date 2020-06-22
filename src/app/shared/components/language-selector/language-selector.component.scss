@@ -1,0 +1,10 @@
+:host {
+  .language-select-button {
+    color: var(--clr-header-title-color, #fafafa);
+    margin-right: .5rem;
+
+    clr-icon {
+      color: var(--clr-header-title-color, #fafafa);
+    }
+  }
+}

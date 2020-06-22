@@ -1,0 +1,73 @@
+:root {
+  /**
+   * This variables are copied from an hackathon project I worked on:
+   * https://github.com/shopwareDowntown/downtown/tree/master/src/MerchantFrontend
+   * This will get us a shopware lookalike theme.
+   */
+  // sw variables
+  --sw-color: #142432;
+  --sw-color-reversed: #FFFFFF;
+  --sw-font-size: 15px;
+  --sw-border: 1px solid #d4d8dc;
+  --sw-primary: #189eff;
+  --sw-primary-dark: #0085E6;
+  --sw-primary-ghost: #E7F5FF;
+  --sw-primary-ghost-hover: #D7EDFF;
+  --sw-regular: #607182;
+  --sw-regular-dark: #52616F;
+  --sw-regular-ghost: #EFF0F2;
+  --sw-regular-ghost-hover: #DFE3E6;
+  --sw-success: #37d046;
+  --sw-success-dark: #29AD36;
+  --sw-success-ghost: #EBFAEC;
+  --sw-success-ghost-hover: #D7F6DA;
+  --sw-danger: #de294c;
+
+
+  // clarity overrides
+  --clr-btn-primary-bg-color: var(--sw-primary);
+  --clr-btn-primary-hover-bg-color: var(--sw-primary-dark);
+  --clr-btn-primary-border-color: var(--sw-primary);
+  --clr-btn-regular-bg-color: var(--sw-regular);
+  --clr-btn-regular-hover-bg-color: var(--sw-regular-dark);
+  --clr-btn-regular-border-color: var(--sw-regular);
+  --clr-btn-success-bg-color: var(--sw-success);
+  --clr-btn-success-hover-bg-color: var(--sw-success-dark);
+  --clr-btn-success-border-color: var(--sw-success);
+  --clr-btn-link-color: var(--sw-primary);
+
+  // headlines & text
+  --clr-h1-font-weight: 700;
+  --clr-h2-font-weight: 600;
+  --clr-h3-font-weight: 600;
+  --clr-h4-font-weight: 500;
+  --clr-h5-font-weight: 500;
+  --clr-h6-font-weight: 500;
+  --ctr-h1-color: var(--sw-color);
+  --ctr-h2-color: var(--sw-color);
+  --ctr-h3-color: var(--sw-color);
+  --ctr-h4-color: var(--sw-color);
+  --ctr-h5-color: var(--sw-color);
+  --ctr-h6-color: var(--sw-color);
+  --clr-p1-color: var(--sw-color);
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  color: var(--sw-regular);
+  font-size: var(--sw-font-size);
+
+  p {
+    font-size: var(--sw-font-size);
+    color: var(--sw-regular);
+    line-height: 24px;
+  }
+}
+
+/**
+ * Import of customizations and other styles
+ */
+@import "button";
+@import "header";
+@import "utils";

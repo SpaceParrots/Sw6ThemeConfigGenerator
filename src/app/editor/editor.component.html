@@ -1,0 +1,32 @@
+<clr-tabs>
+
+  <!-- Config: Tabs -->
+  <ng-container *ngFor="let tab of config.tabs">
+    <clr-tab>
+      <button clrTabLink id="link1">{{tab.name}}</button>
+      <clr-tab-content *clrIfActive>
+
+        <!-- Config: Tab Labels -->
+        <ng-container *ngFor="let label of tab.label">
+          <clr-input-container>
+            <label>{{label.language}}</label>
+            <input clrInput [(ngModel)]="label.label">
+          </clr-input-container>
+        </ng-container>
+
+        <!-- Config: Tab Blocks -->
+
+      </clr-tab-content>
+    </clr-tab>
+  </ng-container>
+
+  <!-- Config: Add Tab -->
+  <clr-tab>
+    <clr-tab>
+      <button clrTabLink (click)="doAddTab()">
+        <clr-icon shape="plus"></clr-icon>
+      </button>
+    </clr-tab>
+  </clr-tab>
+
+</clr-tabs>

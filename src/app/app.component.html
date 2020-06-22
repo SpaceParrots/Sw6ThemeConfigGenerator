@@ -1,5 +1,44 @@
 <clr-main-container>
-  <clr-header class="header-1">
-    Sw6ThemeConfigGenerator
+
+  <!-- Header Toolbar -->
+  <clr-header class="header custom-header">
+
+    <!-- Branding -->
+    <div class="branding">
+      <a routerLink="/" class="logo-and-title">
+        <span class="title" translate>APP_NAME</span>
+      </a>
+    </div>
+
+
+    <!-- Toolbar Navigation -->
+    <div class="header-nav clr-hidden-md-up" [clr-nav-level]="1">
+      <button class="btn btn-secondary">Login</button>
+      <div class="nav-divider"></div>
+      <a *ngFor="let nav of navigation"
+         class="nav-link"
+         [routerLink]="nav.route"
+         routerLinkActive='active'
+         [routerLinkActiveOptions]="{ exact: true }">
+        {{nav.title}}
+      </a>
+    </div>
+
+    <div class="header-actions clr-hidden-sm-down">
+      <app-language-selector></app-language-selector>
+    </div>
+
   </clr-header>
+
+
+  <!-- Content Area-->
+  <div class="content-container">
+    <div class="content-area" [style.padding]="0">
+      <router-outlet #content></router-outlet>
+
+    </div>
+  </div>
+
+  <app-footer></app-footer>
 </clr-main-container>
+

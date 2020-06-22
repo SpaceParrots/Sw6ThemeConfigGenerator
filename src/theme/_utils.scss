@@ -1,0 +1,19 @@
+.no-hover:hover {
+  background-color: transparent;
+}
+
+.no-cursor:hover {
+  cursor: default;
+}
+
+.button-cursor {
+  cursor: pointer !important;
+}
+
+.selectable {
+  cursor: pointer !important;
+}
+
+.selectable:hover {
+  color: var(--sw-primary) !important;
+}

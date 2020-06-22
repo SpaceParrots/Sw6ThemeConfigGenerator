@@ -1,0 +1,74 @@
+/**
+ *  Global button styles
+ */
+.btn {
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  height: 48px;
+  padding: 12px 24px;
+  line-height: 1;
+  outline: none !important;
+  box-shadow: none !important;
+
+  &.btn-regular {
+    background: var(--sw-regular);
+    border-color: var(--sw-regular);
+    color: var(--sw-text-reversed);
+
+    &:hover, &:focus, &:active {
+      background: var(--sw-regular-dark);
+      border-color: var(--sw-regular-dark);
+    }
+
+    &.btn-link {
+      background: var(--sw-regular-ghost);
+      border-color: var(--sw-regular-ghost);
+      color: var(--sw-text);
+
+      &:hover, &:focus, &:active {
+        background: var(--sw-regular-ghost-hover);
+        border-color: var(--sw-regular-ghost-hover);
+      }
+    }
+  }
+
+  &.btn-primary {
+    border-color: var(--sw-primary);
+
+    &:hover, &:focus, &:active {
+      border-color: var(--sw-primary-dark);
+    }
+
+    &.btn-link {
+      background: var(--sw-primary-ghost);
+      border-color: var(--sw-primary-ghost);
+      color: var(--sw-primary);
+
+      &:hover, &:focus, &:active {
+        background: var(--sw-primary-ghost-hover);
+        border-color: var(--sw-primary-ghost-hover);
+      }
+    }
+  }
+
+  &.btn-success {
+    border-color: var(--sw-success);
+
+    &:hover, &:focus, &:active {
+      border-color: var(--sw-success-dark);
+    }
+
+    &.btn-link {
+      background: var(--sw-success-ghost);
+      border-color: var(--sw-success-ghost);
+      color: var(--sw-success);
+
+      &:hover, &:focus, &:active {
+        background: var(--sw-success-ghost-hover);
+        border-color: var(--sw-success-ghost-hover);
+      }
+    }
+  }
+}

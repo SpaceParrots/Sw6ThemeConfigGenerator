@@ -1,0 +1,46 @@
+/**
+ *  Global header style
+ */
+.custom-vertical-nav,
+.custom-header {
+  --clr-responsive-nav-trigger-bg-color: #000;
+  --clr-nav-background-color: #F8F9FB;
+  --clr-header-bg-color: var(--sw-primary);
+
+  // active color
+  --clr-vertical-nav-icon-active-color: #189EFF;
+  --clr-vertical-nav-item-active-color: #607182;
+  --clr-vertical-nav-active-bg-color: rgba(24, 158, 255, 0.1);
+  //hover
+  --clr-vertical-nav-hover-bg-color: rgba(24, 158, 255, 0.1);
+}
+
+/**
+ *  Global burger menu style
+ */
+.open-hamburger-menu {
+
+  .custom-vertical-nav,
+  .custom-header {
+
+    .header-hamburger-trigger {
+      transform: translateX(calc(100vw - 60px)); // had to be changed because width is now 100%
+      transition: transform .3s !important;
+      z-index: 1040 !important; //< Nav had index 1039, so it needs to be higher
+
+      span:before,
+      span:after {
+        transition-delay: .1s;
+      }
+    }
+
+    .header-backdrop {
+      display: none !important;
+    }
+  }
+  .portal-header > .header-nav,
+  .portal-vertical-nav {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}

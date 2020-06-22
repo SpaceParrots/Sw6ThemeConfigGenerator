@@ -1,0 +1,15 @@
+<!-- Language -->
+<clr-dropdown>
+  <button aria-label="language" class="language-select-button nav-icon on-focus" clrDropdownTrigger>
+    <clr-icon shape="language" size="32"></clr-icon>
+    <clr-icon shape="caret down"></clr-icon>
+  </button>
+  <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
+    <ng-container *ngFor="let lang of languages">
+      <button type="button" aria-label="language-select" [class.active]="currentLanguage == lang" (click)="doChangeLanguage(lang)"  clrDropdownItem>
+        <clr-icon shape="book"></clr-icon>
+        {{'_name_' | translateTo:lang }}
+      </button>
+    </ng-container>
+  </clr-dropdown-menu>
+</clr-dropdown>

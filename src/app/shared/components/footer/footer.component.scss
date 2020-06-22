@@ -1,0 +1,34 @@
+:host {
+
+  .site-footer {
+    font-size: .9em;
+    z-index: 2;
+
+    max-width: 100vw;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+
+    h4 {
+      margin-bottom: 1rem;
+    }
+
+    .logo {
+      max-height: 56px;
+    }
+
+    .line {
+      box-sizing: content-box;
+      overflow: visible;
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid var(--sw-primary-ghost);
+      margin: 2rem 0 1em;
+      padding: 0;
+    }
+
+  }
+
+
+}
