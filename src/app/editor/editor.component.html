@@ -11,7 +11,7 @@
         <ng-container *ngFor="let label of tab.label">
           <clr-input-container>
             <label>{{label.language}}</label>
-            <input clrInput [(ngModel)]="label.label">
+            <input clrInput [(ngModel)]="label.label" (blur)="doSaveChanges(config)">
           </clr-input-container>
         </ng-container>
 

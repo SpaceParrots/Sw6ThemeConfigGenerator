@@ -1,1 +1,32 @@
-<p>sections works!</p>
+<clr-tabs *ngIf="$config | async as config" clrLayout="vertical">
+  <ng-container *ngFor="let section of config.sections; let index = index">
+    <clr-tab>
+      <button clrTabLink>
+          {{section.name}}
+      </button>
+      <clr-tab-content *clrIfActive>
+        <!-- Config: Section Name -->
+        <h3 translate>Name</h3>
+        <clr-input-container>
+          <label translate>Identifier</label>
+          <input clrInput type="text" [(ngModel)]="section.name" (blur)="doSaveChanges(config)">
+        </clr-input-container>
+
+        <h3 translate>Labels</h3>
+        <!-- Config: Section Labels -->
+        <ng-container *ngFor="let label of section.label">
+          <clr-input-container>
+            <label>{{label.language}}</label>
+            <input clrInput [(ngModel)]="label.label">
+          </clr-input-container>
+        </ng-container>
+      </clr-tab-content>
+    </clr-tab>
+  </ng-container>
+
+  <clr-tab>
+    <button clrTabLink (click)="doAddSection(config)">
+      <clr-icon class="color-primary" shape="plus"></clr-icon>
+    </button>
+  </clr-tab>
+</clr-tabs>

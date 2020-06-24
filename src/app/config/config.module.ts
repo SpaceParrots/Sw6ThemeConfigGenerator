@@ -7,16 +7,22 @@ import {SectionsComponent} from './sections/sections.component';
 import {BlocksComponent} from './blocks/blocks.component';
 import {FieldsComponent} from './fields/fields.component';
 import {ClarityModule} from '@clr/angular';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
+import {CreateFieldDialogComponent} from './fields/create-field-dialog/create-field-dialog.component';
+import {RxReactiveFormsModule} from '@rxweb/reactive-form-validators';
 
 
 @NgModule({
-  declarations: [TabsComponent, SectionsComponent, BlocksComponent, FieldsComponent],
+  declarations: [TabsComponent, SectionsComponent, BlocksComponent, FieldsComponent, CreateFieldDialogComponent],
   imports: [
     CommonModule,
-    ClarityModule,
     ConfigRoutingModule,
-    FormsModule
+    ClarityModule,
+    TranslateModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RxReactiveFormsModule
   ]
 })
 export class ConfigModule {

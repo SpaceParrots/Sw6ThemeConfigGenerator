@@ -13,26 +13,30 @@
 
     <!-- Toolbar Navigation -->
     <div class="header-nav clr-hidden-md-up" [clr-nav-level]="1">
-      <button class="btn btn-secondary">Login</button>
-      <div class="nav-divider"></div>
-      <a *ngFor="let nav of navigation"
-         class="nav-link"
-         [routerLink]="nav.route"
-         routerLinkActive='active'
-         [routerLinkActiveOptions]="{ exact: true }">
-        {{nav.title}}
-      </a>
+      <a class="nav-link" [routerLink]="'/editor'" [routerLinkActive]="'active'" translate>Editor</a>
+      <a class="nav-link" [routerLink]="'/config/tabs'" [routerLinkActive]="'active'" translate>Tabs</a>
+      <a class="nav-link" [routerLink]="'/config/sections'" [routerLinkActive]="'active'" translate>Sections</a>
+      <a class="nav-link" [routerLink]="'/config/blocks'" [routerLinkActive]="'active'" translate>Blocks</a>
+      <a class="nav-link" [routerLink]="'/config/fields'" [routerLinkActive]="'active'" translate>Fields</a>
     </div>
 
     <div class="header-actions clr-hidden-sm-down">
-      <app-language-selector></app-language-selector>
+      <a (click)="doDownload()" class="do-hover nav-link nav-icon-text clickable" aria-label="download">
+        {{'Download'|translate}}<clr-icon shape="download"></clr-icon>
+      </a>
+      <a (click)="doReset()" class="do-hover nav-link nav-icon-text clickable" aria-label="refresh">
+        {{'Reset'|translate}}<clr-icon shape="refresh"></clr-icon>
+      </a>
+      <app-language-selector class="do-hover"></app-language-selector>
     </div>
 
   </clr-header>
   <nav class="subnav">
     <ul class="nav">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/editor'" [routerLinkActive]="'active'" translate><clr-icon shape="pencil"></clr-icon> Editor</a>
+        <a class="nav-link" [routerLink]="'/editor'" [routerLinkActive]="'active'" translate>
+          <clr-icon shape="pencil"></clr-icon>
+          Editor</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="'/config/tabs'" [routerLinkActive]="'active'" translate>Tabs</a>
@@ -51,7 +55,7 @@
 
   <!-- Content Area-->
   <div class="content-container">
-    <div class="content-area" >
+    <div class="content-area">
       <router-outlet #content></router-outlet>
 
     </div>

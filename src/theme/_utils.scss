@@ -14,6 +14,18 @@
   cursor: pointer !important;
 }
 
+.clickable {
+  cursor: pointer !important;
+}
+
+.do-hover:hover {
+  background: var(--sw-primary-dark) !important;
+}
+
 .selectable:hover {
+  color: var(--sw-primary) !important;
+}
+
+.color-primary {
   color: var(--sw-primary) !important;
 }

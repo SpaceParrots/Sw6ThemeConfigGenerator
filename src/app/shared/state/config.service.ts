@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Config, createConfig} from './config.model';
+import {Config, generateConfigFormat, initConfig} from './config.model';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Logger} from '@core/logger.service';
 
@@ -13,7 +13,7 @@ export class ConfigService {
 
   constructor() {
     // initial state
-    this.$config = new BehaviorSubject(createConfig());
+    this.$config = new BehaviorSubject(initConfig());
     this.load();
   }
 
@@ -21,11 +21,15 @@ export class ConfigService {
     return this.$config.asObservable();
   }
 
+  getValue(): Config {
+    return this.$config.getValue();
+  }
+
   load() {
     const item = localStorage.getItem(this.KEY);
     if (item) {
       log.info('Found config in local storage');
-      this.$config.next(createConfig(JSON.parse(item)));
+      this.$config.next(initConfig(JSON.parse(item)));
     }
   }
 
@@ -40,7 +44,31 @@ export class ConfigService {
   }
 
   clear() {
-    this.$config.next(createConfig());
+    this.$config.next(initConfig());
     localStorage.removeItem(this.KEY);
+  }
+
+  generateConfig() {
+    const config = this.$config.getValue();
+    if (config) {
+      this.downloadByHtmlTag({
+        fileName: 'theme.json',
+        text: JSON.stringify(generateConfigFormat(config), null, 2)
+      });
+    }
+
+  }
+
+
+  private downloadByHtmlTag(arg: {
+    fileName: string,
+    text: string
+  }) {
+
+    const element = document.createElement('a');
+    const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+    element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
+    element.setAttribute('download', arg.fileName);
+    element.dispatchEvent(new MouseEvent('click'));
   }
 }

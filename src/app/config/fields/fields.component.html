@@ -1,1 +1,46 @@
-<p>fields works!</p>
+<ng-container *ngIf="$config | async as config">
+
+  <clr-modal [(clrModalOpen)]="createFieldModal">
+    <h3 class="modal-title" translate>New Field</h3>
+    <div class="modal-body">
+      <app-create-field-dialog (onSubmit)="doCreateField($event, config)" #createFieldDialog></app-create-field-dialog>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="doCloseModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="createFieldDialog.doSubmit(config)">Ok</button>
+    </div>
+  </clr-modal>
+
+  <button class="btn btn-primary-outline" (click)="doOpenModal()">
+    <clr-icon shape="plus"></clr-icon>
+  </button>
+
+  <clr-datagrid>
+
+    <clr-dg-column>Name</clr-dg-column>
+    <clr-dg-column>Type</clr-dg-column>
+    <clr-dg-column>Tab</clr-dg-column>
+    <clr-dg-column>Block</clr-dg-column>
+    <clr-dg-column>Section</clr-dg-column>
+
+
+    <clr-dg-row *clrDgItems="let field of config.fields" [clrDgItem]="field">
+      <clr-dg-cell>{{field.name}}</clr-dg-cell>
+      <clr-dg-cell>{{field.type}}</clr-dg-cell>
+      <clr-dg-cell>{{field.tab}}</clr-dg-cell>
+      <clr-dg-cell>{{field.block}}</clr-dg-cell>
+      <clr-dg-cell>{{field.section}}</clr-dg-cell>
+
+      <clr-dg-row-detail *clrIfExpanded>
+        <clr-input-container>
+          <label translate>Name</label>
+          <input clrInput [(ngModel)]="field.name" />
+        </clr-input-container>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>{{config.fields.length}} Fields</clr-dg-footer>
+  </clr-datagrid>
+
+</ng-container>
+

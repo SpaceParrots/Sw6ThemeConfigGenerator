@@ -1,0 +1,73 @@
+<ng-container *ngIf="$config | async as config">
+
+  <form clrForm [formGroup]="form">
+    <clr-input-container>
+      <label translate>Identifier</label>
+      <input clrInput formControlName="name"/>
+    </clr-input-container>
+    <ng-container formArrayName="label">
+      <ng-container *ngFor="let control of label.controls; index as i" [formGroupName]="i">
+        <clr-input-container>
+          <label *ngIf="i == 0" translate>Label</label>
+          <input clrInput formControlName="label"/>
+          <clr-control-helper>{{control.get('language').value}}</clr-control-helper>
+        </clr-input-container>
+      </ng-container>
+    </ng-container>
+    <clr-select-container>
+      <label>Type</label>
+      <select clrSelect name="options" formControlName="type">
+        <option value="text" translate>text</option>
+        <option value="color" translate>color</option>
+        <option value="number" translate>number</option>
+        <option value="fontFamily" translate>fontFamily</option>
+        <option value="media" translate>media</option>
+        <option value="checkbox " translate>checkbox</option>
+        <option value="switch" translate>switch</option>
+      </select>
+    </clr-select-container>
+    <clr-input-container>
+      <label translate>Value</label>
+      <input clrInput formControlName="value"/>
+    </clr-input-container>
+    <clr-toggle-container>
+      <label translate>Settings</label>
+      <clr-toggle-wrapper>
+        <label translate>Editable</label>
+        <input type="checkbox" clrToggle formControlName="editable"/>
+      </clr-toggle-wrapper>
+      <clr-toggle-wrapper>
+        <label translate>SCSS</label>
+        <input type="checkbox" clrToggle formControlName="scss"/>
+      </clr-toggle-wrapper>
+    </clr-toggle-container>
+
+    <clr-datalist-container>
+      <label translate>Tab</label>
+      <input clrDatalistInput formControlName="tab" placeholder="Tab" name="tab"/>
+      <datalist id="datalist-tabs">
+        <option *ngFor="let tab of config.tabs" [value]="tab.name" [id]="tab.id">{{tab.formattedName}}</option>
+      </datalist>
+    </clr-datalist-container>
+
+    <clr-datalist-container>
+      <label translate>Block</label>
+      <input clrDatalistInput formControlName="block" placeholder="Block" name="block"/>
+      <datalist id="datalist-blocks">
+        <option *ngFor="let block of config.blocks" [value]="block.name" [id]="block.id">{{block.formattedName}}</option>
+      </datalist>
+    </clr-datalist-container>
+
+    <clr-datalist-container>
+      <label translate>Section</label>
+      <input clrDatalistInput formControlName="section" placeholder="Section" name="section"/>
+      <datalist id="datalist-sections">
+        <option *ngFor="let section of config.sections" [value]="section.name" [id]="section.id">{{section.formattedName}}</option>
+      </datalist>
+    </clr-datalist-container>
+
+
+    <button class="btn btn-primary" type="submit" (click)="doSubmit(config)">Submit</button>
+  </form>
+
+</ng-container>

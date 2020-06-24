@@ -9,6 +9,7 @@ import {Logger} from '@core/logger.service';
 import {merge} from 'rxjs';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {untilDestroyed} from '@core/until-destroyed';
+import {ConfigService} from '@app/shared/state/config.service';
 
 const log = new Logger('App');
 
@@ -26,7 +27,8 @@ export class AppComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private titleService: Title,
               private translateService: TranslateService,
-              private i18nService: I18nService) {
+              private i18nService: I18nService,
+              private configService: ConfigService) {
   }
 
   ngOnInit() {
@@ -67,5 +69,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.i18nService.destroy();
+  }
+
+  doReset() {
+    this.configService.clear();
+  }
+
+  doDownload() {
+    this.configService.generateConfig();
   }
 }

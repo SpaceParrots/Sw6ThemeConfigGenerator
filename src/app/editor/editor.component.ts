@@ -14,7 +14,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   public $config: Observable<Config>;
 
   constructor(private configService: ConfigService) {
-    this.$config = this.configService.get();
+    this.$config = configService.get();
   }
 
   ngOnInit(): void {
@@ -22,11 +22,14 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   doAddTab(config: Config) {
-    config.tabs.push(new ConfigTab('New Tab'));
-    this.configService.update(config);
+    config.tabs.push(new ConfigTab({name: `Tab #${config.tabs.length + 1}`}));
   }
 
   ngOnDestroy(): void {
 
+  }
+
+  doSaveChanges(config: Config) {
+    this.configService.update(config);
   }
 }

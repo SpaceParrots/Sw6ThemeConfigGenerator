@@ -1,38 +1,39 @@
-import {ConfigField} from '@app/shared/classes/config-field.model';
+import {UUID} from '@core/uuid';
+import {propArray, required, unique} from '@rxweb/reactive-form-validators';
+import {ConfigLabel} from '@app/shared/classes/config-label.model';
+import {slugify} from '@core/slugify';
 
-export class ConfigSectionLabel {
-  public language: string;
-  public label: string;
-
-  constructor(language: string, label: string) {
-    this.language = language;
-    this.label = label;
-  }
-
-  /**
-   * Builds a theme config entry
-   * @return label config format: `${language}: ${label}`
-   */
-  public toConfigFormat(): any {
-    return Object.defineProperty({}, this.language, this.label);
-  }
+export interface IConfigSection {
+  id: string;
+  name: string;
+  label: ConfigLabel[];
 }
 
 export class ConfigSection {
+
+  id: string;
+
+  @required()
   name: string;
 
-  label: ConfigSectionLabel[];
-  fields: ConfigField[];
+  @propArray(ConfigLabel)
+  label: ConfigLabel[];
 
-  constructor(name: string, label: ConfigSectionLabel[] = null) {
-    this.name = name;
-    this.label = label;
-    if (this.label == null) {
+  constructor(props: Partial<IConfigSection> = {}) {
+    this.id = props.id || UUID.generate();
+    this.name = props.name || 'Default Section';
+    if (props.label == null) {
       this.label = [
-        new ConfigSectionLabel('de-DE', `${this.name} DE`),
-        new ConfigSectionLabel('en-GB', `${this.name} EN`)
+        new ConfigLabel({language: 'de-DE', label: `${this.name} DE`}),
+        new ConfigLabel({language: 'en-GB', label: `${this.name} EN`})
       ];
+    } else {
+      this.label = props.label.map(value => new ConfigLabel(value));
     }
+  }
+
+  get formattedName(): string {
+    return slugify(this.name);
   }
 
   /**
@@ -40,14 +41,17 @@ export class ConfigSection {
    * @return label config format: `${name}: { ${label}.toMap() }`
    */
   public toConfigFormat(): any {
-    const labels = this.label
+    const label = this.label
       .map(value => value.toConfigFormat()) // Transforms array to: [{"de-DE":"Label"},{"en-GB":"Label"}]
       .reduce((result, item) => {
         const key = Object.keys(item)[0]; // get first properties: "de-DE", "en-GB"
         result[key] = item[key]; // assign object property with value
         return result;
       }, {});
-    return Object.defineProperty({}, this.name, labels);
+
+    const section = {};
+    section[this.formattedName] = {label};
+    return section;
   }
 
 }

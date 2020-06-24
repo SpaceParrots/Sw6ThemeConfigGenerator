@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {I18nService} from '@core/i18n.service';
+import {extract, I18nService} from '@core/i18n.service';
 
 @Component({
   selector: 'app-language-selector',
@@ -12,6 +12,8 @@ export class LanguageSelectorComponent implements OnInit {
   constructor(
     private i18nService: I18nService
   ) {
+    // This line is just used for i18n extraction
+    const currentLang = extract('_name_');
   }
 
   /**

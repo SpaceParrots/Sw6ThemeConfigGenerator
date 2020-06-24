@@ -1,10 +1,18 @@
-<clr-tabs *ngIf="$config | async as config">
+<clr-tabs *ngIf="$config | async as config" clrLayout="vertical">
 
   <!-- Config: Tabs -->
   <ng-container *ngFor="let tab of config.tabs">
     <clr-tab>
-      <button clrTabLink id="link1">{{tab.name}}</button>
+      <button clrTabLink >
+          {{tab.name}}
+      </button>
       <clr-tab-content *clrIfActive>
+        <!-- Config: Tab Name -->
+        <h3 translate>Name</h3>
+        <clr-input-container>
+          <label translate>Identifier</label>
+          <input clrInput type="text" [(ngModel)]="tab.name" (blur)="doSaveChanges(config)">
+        </clr-input-container>
 
         <h3 translate>Labels</h3>
         <!-- Config: Tab Labels -->
@@ -14,8 +22,6 @@
             <input clrInput [(ngModel)]="label.label">
           </clr-input-container>
         </ng-container>
-
-
       </clr-tab-content>
     </clr-tab>
   </ng-container>
@@ -24,7 +30,7 @@
   <clr-tab>
     <clr-tab>
       <button clrTabLink (click)="doAddTab(config)">
-        <clr-icon shape="plus"></clr-icon>
+        <clr-icon class="color-primary" shape="plus"></clr-icon>
       </button>
     </clr-tab>
   </clr-tab>

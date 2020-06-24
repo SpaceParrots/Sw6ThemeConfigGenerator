@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Config} from '@app/shared/state/config.model';
+import {ConfigService} from '@app/shared/state/config.service';
+import {ConfigSection} from '@app/shared/classes/config-section.model';
 
 @Component({
   selector: 'app-sections',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SectionsComponent implements OnInit {
 
-  constructor() { }
+  public $config: Observable<Config>;
+
+  constructor(private configService: ConfigService) {
+    this.$config = configService.get();
+  }
+
 
   ngOnInit(): void {
+  }
+
+  doAddSection(config: Config) {
+    config.sections.push(new ConfigSection({name: `Section #${config.sections.length + 1}`}));
+    this.configService.update(config);
+  }
+
+  doSaveChanges(config: Config) {
+    this.configService.update(config);
   }
 
 }
