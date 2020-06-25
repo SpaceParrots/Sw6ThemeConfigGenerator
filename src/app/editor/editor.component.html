@@ -1,3 +1,13 @@
+<clr-alerts>
+  <clr-alert [clrAlertClosable]="false" [clrAlertType]="'warning'">
+    <clr-alert-item>
+       <span class="alert-text">
+            {{'The editor is not yet available to use.'|translate}}
+        </span>
+    </clr-alert-item>
+  </clr-alert>
+</clr-alerts>
+
 <clr-tabs *ngIf="$config | async as config">
 
   <!-- Config: Tabs -->

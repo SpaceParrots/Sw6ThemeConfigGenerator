@@ -12,8 +12,7 @@ export class LanguageSelectorComponent implements OnInit {
   constructor(
     private i18nService: I18nService
   ) {
-    // This line is just used for i18n extraction
-    const currentLang = extract('_name_');
+
   }
 
   /**
