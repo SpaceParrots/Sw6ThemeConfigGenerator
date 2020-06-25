@@ -30,4 +30,9 @@ export class SectionsComponent implements OnInit {
     this.configService.update(config);
   }
 
+  doRemove(config: Config, index: number) {
+    // TODO: Detect fields that are affected
+    config.sections.splice(index, 1);
+    this.configService.update(config);
+  }
 }

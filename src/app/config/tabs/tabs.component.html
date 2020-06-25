@@ -1,12 +1,18 @@
 <clr-tabs *ngIf="$config | async as config" clrLayout="vertical">
 
   <!-- Config: Tabs -->
-  <ng-container *ngFor="let tab of config.tabs">
+  <ng-container *ngFor="let tab of config.tabs; let index = index">
     <clr-tab>
-      <button clrTabLink >
-          {{tab.name}}
+      <button clrTabLink>
+        {{tab.name}}
       </button>
       <clr-tab-content *clrIfActive>
+        <!-- Remove Button -->
+        <button type="button" class="btn btn-sm btn-outline-danger color-danger" aria-label="remove"
+                (click)="doRemove(config, index)">
+          <clr-icon shape="trash" class="is-danger"></clr-icon>
+          {{'Remove'|translate}}
+        </button>
         <!-- Config: Tab Name -->
         <h3 translate>Name</h3>
         <clr-input-container>
@@ -19,9 +25,10 @@
         <ng-container *ngFor="let label of tab.label">
           <clr-input-container>
             <label>{{label.language}}</label>
-            <input clrInput [(ngModel)]="label.label">
+            <input clrInput [(ngModel)]="label.label" (blur)="doSaveChanges(config)">
           </clr-input-container>
         </ng-container>
+
       </clr-tab-content>
     </clr-tab>
   </ng-container>

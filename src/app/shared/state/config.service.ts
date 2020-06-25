@@ -17,15 +17,34 @@ export class ConfigService {
     this.load();
   }
 
-  get(): Observable<Config> {
+  /**
+   * Get the Observable of the config
+   * @return config observable
+   */
+  public get(): Observable<Config> {
     return this.$config.asObservable();
   }
 
-  getValue(): Config {
+  /**
+   * Gets the current config
+   * @return current config
+   */
+  public getValue(): Config {
     return this.$config.getValue();
   }
 
-  load() {
+  /**
+   * Imports a config from a already existing theme.json file
+   * @deprecated This method is not implemented yet!
+   */
+  public import(): void {
+    // TODO import from an existing theme.json file
+  }
+
+  /**
+   * Loads the current config from local storage
+   */
+  public load(): void {
     const item = localStorage.getItem(this.KEY);
     if (item) {
       log.info('Found config in local storage');
@@ -33,22 +52,37 @@ export class ConfigService {
     }
   }
 
-  save() {
+  /**
+   * Saves the current config to local storage
+   */
+  public save(): void {
     localStorage.setItem(this.KEY, JSON.stringify(this.$config.getValue()));
     log.info('Saved config to local storage');
   }
 
-  update(config: Config) {
+  /**
+   * Updates the current config
+   * @param config next config state
+   */
+  public update(config: Config): void {
     this.$config.next(config);
     this.save();
   }
 
-  clear() {
+  /**
+   * Clears the local storage and resets the
+   * config state
+   */
+  public clear(): void {
     this.$config.next(initConfig());
     localStorage.removeItem(this.KEY);
   }
 
-  generateConfig() {
+  /**
+   * Generates a theme.json file from the current
+   * config state
+   */
+  public generateConfig(): void {
     const config = this.$config.getValue();
     if (config) {
       this.downloadByHtmlTag({
@@ -59,7 +93,10 @@ export class ConfigService {
 
   }
 
-
+  /**
+   * Creates an anchor tag to simulate a download
+   * @param arg filename and text to download a file
+   */
   private downloadByHtmlTag(arg: {
     fileName: string,
     text: string
@@ -70,5 +107,7 @@ export class ConfigService {
     element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
     element.setAttribute('download', arg.fileName);
     element.dispatchEvent(new MouseEvent('click'));
+
+    // TODO: maybe remove the element from document again
   }
 }

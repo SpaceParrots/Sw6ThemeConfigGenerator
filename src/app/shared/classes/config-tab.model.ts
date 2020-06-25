@@ -1,14 +1,20 @@
 import {UUID} from '@core/uuid';
-import {propArray, required, unique} from '@rxweb/reactive-form-validators';
+import {propArray, required} from '@rxweb/reactive-form-validators';
 import {ConfigLabel} from '@app/shared/classes/config-label.model';
 import {slugify} from '@core/slugify';
 
+/**
+ * ConfigTab interface
+ */
 export interface IConfigTab {
   id: string;
   name: string;
   label: ConfigLabel[];
 }
 
+/**
+ * ConfigTab model
+ */
 export class ConfigTab implements IConfigTab {
 
   id: string;
@@ -19,6 +25,10 @@ export class ConfigTab implements IConfigTab {
   @propArray(ConfigLabel)
   label: ConfigLabel[];
 
+  /**
+   * Constructor
+   * @param props properties or empty object
+   */
   constructor(props: Partial<IConfigTab> = {}) {
     this.id = props.id || UUID.generate();
     this.name = props.name || 'Default Tab';
@@ -32,6 +42,10 @@ export class ConfigTab implements IConfigTab {
     }
   }
 
+  /**
+   * Gets a name that is usable inside a json file
+   * @see slugify
+   */
   get formattedName(): string {
     return slugify(this.name);
   }

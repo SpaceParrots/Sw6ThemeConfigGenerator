@@ -1,14 +1,20 @@
 import {UUID} from '@core/uuid';
-import {propArray, required, unique} from '@rxweb/reactive-form-validators';
+import {propArray, required} from '@rxweb/reactive-form-validators';
 import {ConfigLabel} from '@app/shared/classes/config-label.model';
 import {slugify} from '@core/slugify';
 
+/**
+ * ConfigSection Interface
+ */
 export interface IConfigSection {
   id: string;
   name: string;
   label: ConfigLabel[];
 }
 
+/**
+ * ConfigSection Model
+ */
 export class ConfigSection {
 
   id: string;
@@ -19,6 +25,10 @@ export class ConfigSection {
   @propArray(ConfigLabel)
   label: ConfigLabel[];
 
+  /**
+   * Constructor
+   * @param props properties or empty object
+   */
   constructor(props: Partial<IConfigSection> = {}) {
     this.id = props.id || UUID.generate();
     this.name = props.name || 'Default Section';
@@ -32,6 +42,10 @@ export class ConfigSection {
     }
   }
 
+  /**
+   * Gets a name that is usable inside a json file
+   * @see slugify
+   */
   get formattedName(): string {
     return slugify(this.name);
   }

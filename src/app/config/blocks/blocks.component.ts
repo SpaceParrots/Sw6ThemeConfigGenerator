@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Config} from '@app/shared/state/config.model';
 import {ConfigService} from '@app/shared/state/config.service';
-import {ConfigSection} from '@app/shared/classes/config-section.model';
 import {ConfigBlock} from '@app/shared/classes/config-block.model';
 
 @Component({
@@ -29,6 +28,12 @@ export class BlocksComponent implements OnInit {
   }
 
   doSaveChanges(config: Config) {
+    this.configService.update(config);
+  }
+
+  doRemove(config: Config, index: number) {
+    // TODO: Detect fields that are affected
+    config.blocks.splice(index, 1);
     this.configService.update(config);
   }
 

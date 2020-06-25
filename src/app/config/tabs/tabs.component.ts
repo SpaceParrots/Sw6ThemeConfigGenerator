@@ -49,4 +49,10 @@ export class TabsComponent implements OnInit {
     }
 
   }
+
+  doRemove(config: Config, index: number) {
+    // TODO: Detect fields that are affected
+    config.tabs.splice(index, 1);
+    this.configService.update(config);
+  }
 }

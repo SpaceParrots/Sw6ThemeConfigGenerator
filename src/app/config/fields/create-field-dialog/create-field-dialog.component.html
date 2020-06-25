@@ -65,9 +65,6 @@
         <option *ngFor="let section of config.sections" [value]="section.name" [id]="section.id">{{section.formattedName}}</option>
       </datalist>
     </clr-datalist-container>
-
-
-    <button class="btn btn-primary" type="submit" (click)="doSubmit(config)">Submit</button>
   </form>
 
 </ng-container>

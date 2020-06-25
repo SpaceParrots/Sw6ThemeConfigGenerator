@@ -1,7 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
-import {map} from 'rxjs/operators';
 import {Logger} from '@core/logger.service';
 import {I18nService} from '@core/i18n.service';
 
@@ -17,6 +15,11 @@ export class TranslateToPipe implements PipeTransform {
 
   }
 
+  /**
+   * Transforms an input into its translation
+   * @param value to transform
+   * @param language target
+   */
   transform(value: string, language: string): any {
     if (!value) {
       log.error('Value is null');
@@ -39,7 +42,7 @@ export class TranslateToPipe implements PipeTransform {
    */
   public getTranslation(key: string, language: string): string {
     const embeddedTranslation = this.i18nService.getEmbeddedTranslation(language);
-    if(embeddedTranslation){
+    if (embeddedTranslation) {
       return this.translateService.getParsedResult(embeddedTranslation, key);
     } else {
       return 'NO_TRANSLATION_FOUND';

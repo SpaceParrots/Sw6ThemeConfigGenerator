@@ -6,8 +6,12 @@ import {json, prop, propArray, required, unique} from '@rxweb/reactive-form-vali
 import {ConfigLabel} from '@app/shared/classes/config-label.model';
 import {slugify} from '@core/slugify';
 
+// Possible config field types
 export type ConfigFieldType = 'color' | 'text' | 'number' | 'fontFamily' | 'media' | 'checkbox' | 'switch';
 
+/**
+ * ConfigField Interface
+ */
 export interface IConfigField {
   id: string;
   name: string;
@@ -27,8 +31,12 @@ export interface IConfigField {
   sectionId: string;
 }
 
+/**
+ * ConfigField Model
+ */
 export class ConfigField implements IConfigField {
 
+  @unique()
   id: string;
 
   @unique()
@@ -47,7 +55,7 @@ export class ConfigField implements IConfigField {
   editable: boolean;
 
   @prop()
-  tab: any | string;
+  tab: string;
   @prop()
   tabId: string;
 
@@ -68,6 +76,10 @@ export class ConfigField implements IConfigField {
   @json()
   custom: any | string;
 
+  /**
+   * Constructor
+   * @param props properties or empty object
+   */
   constructor(props: Partial<IConfigField> = {}) {
     this.id = props.id || UUID.generate();
     this.name = props.name || 'Default Field';
@@ -75,7 +87,7 @@ export class ConfigField implements IConfigField {
     this.value = props.value || null;
     this.editable = props.editable || false;
     this.scss = props.scss || true;
-    this.custom = props.custom || undefined;
+    this.custom = props.custom || null;
     this.tab = props.tab || null;
     this.tabId = props.tabId || null;
     this.block = props.block || null;
@@ -86,29 +98,45 @@ export class ConfigField implements IConfigField {
     if (props.label == null) {
       this.label = [
         new ConfigLabel({language: 'de-DE', label: `${this.name} DE`}),
-        new ConfigLabel({language: 'en-GB', label: `${this.name} Field EN`})
+        new ConfigLabel({language: 'en-GB', label: `${this.name} EN`})
       ];
     } else {
       this.label = props.label.map(value => new ConfigLabel(value));
     }
   }
 
+  /**
+   * Gets a name that is usable inside a json file
+   * @see slugify
+   */
   get formattedName(): string {
     return slugify(this.name);
   }
 
+  /**
+   * Sets a ConfigSection
+   * @param section the field should be placed in
+   */
   public setSection(section: ConfigSection) {
-    this.section = section.formattedName || null;
+    this.section = section.name || null;
     this.sectionId = section.id || null;
   }
 
+  /**
+   * Sets a ConfigTab
+   * @param tab the field should be placed in
+   */
   public setTab(tab: ConfigTab) {
-    this.tab = tab.formattedName || null;
+    this.tab = tab.name || null;
     this.tabId = tab.id || null;
   }
 
+  /**
+   * Sets a ConfigBlock
+   * @param block the field should be placed in
+   */
   public setBlock(block: ConfigBlock) {
-    this.block = block.formattedName || null;
+    this.block = block.name || null;
     this.blockId = block.id || null;
   }
 
@@ -135,9 +163,9 @@ export class ConfigField implements IConfigField {
       scss: this.scss,
       customObj: customObj || undefined,
       label,
-      tab: this.tab || undefined,
-      block: this.block || undefined,
-      section: this.section || undefined
+      tab: slugify(this.tab) || undefined,
+      block: slugify(this.block) || undefined,
+      section: slugify(this.section) || undefined
     };
     return field;
   }

@@ -1,14 +1,20 @@
 import {UUID} from '@core/uuid';
-import {propArray, required, unique} from '@rxweb/reactive-form-validators';
+import {propArray, required} from '@rxweb/reactive-form-validators';
 import {ConfigLabel} from '@app/shared/classes/config-label.model';
 import {slugify} from '@core/slugify';
 
+/**
+ * ConfigBlock interface
+ */
 export interface IConfigBlock {
   id: string;
   name: string;
   label: ConfigLabel[];
 }
 
+/**
+ * ConfigBlock Model
+ */
 export class ConfigBlock implements IConfigBlock {
 
   id: string;
@@ -19,6 +25,10 @@ export class ConfigBlock implements IConfigBlock {
   @propArray(ConfigLabel)
   label: ConfigLabel[];
 
+  /**
+   * Constructor
+   * @param props properties or empty object
+   */
   constructor(props: Partial<IConfigBlock> = {}) {
     this.id = props.id || UUID.generate();
     this.name = props.name || 'Default Block';
@@ -33,6 +43,10 @@ export class ConfigBlock implements IConfigBlock {
     }
   }
 
+  /**
+   * Gets a name that is usable inside a json file
+   * @see slugify
+   */
   get formattedName(): string {
     return slugify(this.name);
   }

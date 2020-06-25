@@ -4,6 +4,9 @@ import {ConfigField} from '@app/shared/classes/config-field.model';
 import {ConfigBlock} from '@app/shared/classes/config-block.model';
 import {prop, propArray} from '@rxweb/reactive-form-validators';
 
+/**
+ * Config class
+ */
 export class Config {
   @prop()
   name: string;
@@ -24,6 +27,10 @@ export class Config {
   fields: ConfigField[];
 }
 
+/**
+ * Initializes a config object state
+ * @param params local storage object or empty object
+ */
 export function initConfig(params: Partial<Config> = {}): Config {
   return {
     name: params.name || 'A Theme',
@@ -35,6 +42,11 @@ export function initConfig(params: Partial<Config> = {}): Config {
   } as Config;
 }
 
+/**
+ * Generates a theme.json file for a shopware 6 theme
+ * @see https://docs.shopware.com/en/shopware-platform-dev-en/theme-guide/configuration#tabs-blocks-and-sections
+ * @param config current config state
+ */
 export function generateConfigFormat(config: Config): any {
   const configObj = {
     name: config.name,

@@ -15,14 +15,13 @@ export class CreateFieldDialogComponent implements OnInit {
 
   public form: FormGroup;
   public $config: Observable<Config>;
-
   @Output()
-  public onSubmit: EventEmitter<ConfigField> = new EventEmitter<ConfigField>();
+  public submit: EventEmitter<ConfigField> = new EventEmitter<ConfigField>();
+  private editingField: ConfigField;
 
   constructor(private formBuilder: RxFormBuilder,
               private configService: ConfigService) {
-    this.form = this.formBuilder.formGroup(ConfigField);
-    this.$config = this.configService.get();
+
   }
 
   get label(): FormArray {
@@ -30,9 +29,17 @@ export class CreateFieldDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.form = this.formBuilder.formGroup(ConfigField);
+    this.$config = this.configService.get();
   }
 
-  doSubmit(config: Config){
+  doEdit(field: ConfigField) {
+    this.editingField = field;
+    console.log(field);
+    this.form.setValue(field);
+  }
+
+  doSubmit(config: Config) {
     if (this.form.untouched || this.form.invalid) {
       return;
     }
@@ -61,7 +68,13 @@ export class CreateFieldDialogComponent implements OnInit {
       }
     }
 
-    this.onSubmit.emit(field);
+    if (this.editingField) {
+      Object.assign(this.editingField, field);
+      /*this.editingField.name = field.name;*/
+      this.editingField = null;
+    }
+
+    this.submit.emit(field);
     this.form.reset();
   }
 

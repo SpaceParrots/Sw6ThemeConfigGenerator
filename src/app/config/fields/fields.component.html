@@ -1,9 +1,12 @@
 <ng-container *ngIf="$config | async as config">
 
+  <!-- ###############################################################
+  # New Field Modal
+  ################################################################ -->
   <clr-modal [(clrModalOpen)]="createFieldModal">
     <h3 class="modal-title" translate>New Field</h3>
     <div class="modal-body">
-      <app-create-field-dialog (onSubmit)="doCreateField($event, config)" #createFieldDialog></app-create-field-dialog>
+      <app-create-field-dialog (submit)="doCreateField($event, config)" #createFieldDialog></app-create-field-dialog>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline" (click)="doCloseModal()">Cancel</button>
@@ -11,7 +14,21 @@
     </div>
   </clr-modal>
 
-  <button class="btn btn-primary-outline" (click)="doOpenModal()">
+  <!-- ###############################################################
+  # Edit Field Modal
+  ################################################################ -->
+  <clr-modal [(clrModalOpen)]="editFieldModal">
+    <h3 class="modal-title" translate>Edit Field</h3>
+    <div class="modal-body">
+      <app-create-field-dialog (submit)="doUpdateField($event, config)" #editFieldDialog></app-create-field-dialog>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="doCloseModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="editFieldDialog.doSubmit(config)">Ok</button>
+    </div>
+  </clr-modal>
+
+  <button class="btn btn-primary-outline" (click)="doOpenCreateModal()">
     <clr-icon shape="plus"></clr-icon>
   </button>
 
@@ -24,7 +41,7 @@
     <clr-dg-column>Section</clr-dg-column>
 
 
-    <clr-dg-row *clrDgItems="let field of config.fields" [clrDgItem]="field">
+    <clr-dg-row *clrDgItems="let field of config.fields; let index = index" [clrDgItem]="field">
       <clr-dg-cell>{{field.name}}</clr-dg-cell>
       <clr-dg-cell>{{field.type}}</clr-dg-cell>
       <clr-dg-cell>{{field.tab}}</clr-dg-cell>
@@ -32,11 +49,57 @@
       <clr-dg-cell>{{field.section}}</clr-dg-cell>
 
       <clr-dg-row-detail *clrIfExpanded>
-        <clr-input-container>
-          <label translate>Name</label>
-          <input clrInput [(ngModel)]="field.name" />
-        </clr-input-container>
+
+        <div class="clr-row ">
+          <div class="clr-col-6 clr-col-md-3">
+            <span class="label" translate>Name</span>
+            <div>{{field.name}}</div>
+          </div>
+          <div class="clr-col-6 clr-col-md-3">
+            <span class="label" translate>Formatted Name</span>
+            <div>{{field.formattedName}}</div>
+          </div>
+          <div class="clr-col-6 clr-col-md-3">
+            <span class="label" translate>Type</span>
+            <div>{{field.type | translate}}</div>
+          </div>
+          <div class="clr-col-6 clr-col-md-3">
+            <span class="label" translate>Value</span>
+            <div>{{field.value | translate}}</div>
+          </div>
+          <div class="clr-break-row"></div>
+          <div class="clr-col-6 clr-col-md-3">
+            <span class="label" translate>Tab</span>
+            <div>{{field.tab}}</div>
+          </div>
+          <div class="clr-col-6 clr-col-md-3">
+            <span class="label" translate>Block</span>
+            <div>{{field.block}}</div>
+          </div>
+          <div class="clr-col-6 clr-col-md-3">
+            <span class="label" translate>Section</span>
+            <div>{{field.section | translate}}</div>
+          </div>
+          <div class="clr-break-row"></div>
+          <div class="clr-col-6 clr-col-md-3">
+            <span class="label" translate>Label</span>
+            <div *ngFor="let label of field.label">{{label.language}}: {{label.label}}</div>
+          </div>
+          <div class="clr-col-6 clr-col-md-3">
+            <span class="label" translate>SCSS</span>
+            <div>{{field.scss ? 'TRUE' : 'FALSE'}}</div>
+            <span class="label" translate>Editable</span>
+            <div>{{field.editable ? 'TRUE' : 'FALSE'}}</div>
+          </div>
+        </div>
+
       </clr-dg-row-detail>
+
+      <clr-dg-action-overflow>
+        <!-- TODO: Duplication -->
+        <button class="action-item" (click)="editFieldDialog.doEdit(field); doOpenEditModal();" translate>Edit</button>
+        <button class="action-item" (click)="doRemove(config, index)" translate>Remove</button>
+      </clr-dg-action-overflow>
     </clr-dg-row>
 
     <clr-dg-footer>{{config.fields.length}} Fields</clr-dg-footer>

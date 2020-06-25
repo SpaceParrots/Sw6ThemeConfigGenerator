@@ -5,6 +5,12 @@
           {{section.name}}
       </button>
       <clr-tab-content *clrIfActive>
+        <!-- Remove Button -->
+        <button type="button" class="btn btn-sm btn-outline-danger color-danger" aria-label="remove"
+                (click)="doRemove(config, index)">
+          <clr-icon shape="trash" class="is-danger"></clr-icon>
+          {{'Remove'|translate}}
+        </button>
         <!-- Config: Section Name -->
         <h3 translate>Name</h3>
         <clr-input-container>
@@ -17,7 +23,7 @@
         <ng-container *ngFor="let label of section.label">
           <clr-input-container>
             <label>{{label.language}}</label>
-            <input clrInput [(ngModel)]="label.label">
+            <input clrInput [(ngModel)]="label.label" (blur)="doSaveChanges(config)">
           </clr-input-container>
         </ng-container>
       </clr-tab-content>
