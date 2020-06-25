@@ -1,6 +1,8 @@
 # Sw6ThemeConfigGenerator
 A configuration tool that provides the theme.json file for a shopware 6 plugin
 
+http://sw6theme-config-generator.surge.sh
+
 ## Get started
 Clone the repository and navigate into the project directory
 
